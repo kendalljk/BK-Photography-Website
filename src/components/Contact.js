@@ -70,7 +70,7 @@ const Contact = () => {
 
     const handleChange = (e) => {
         setState((state) =>({
-        ...state, 
+        ...state,
         [e.target.name] : e.target.value
         }));
         setError((error) => ({
