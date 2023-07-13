@@ -122,7 +122,7 @@ const Contact = () => {
                     </Form.Group>
                     {error.message && <span className="error-text">{error.message}</span>}
                     <div className='d-flex justify-content-center'>
-                        <Button style={{marginTop: '5%'}} variant='outline-primary' type="submit">Submit</Button>
+                        <button style={{marginTop: '5%'}} variant='outline-primary' type="submit">Submit</button>
                     </div>
                 </Form>
             </Col>

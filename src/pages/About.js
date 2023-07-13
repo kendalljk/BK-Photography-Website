@@ -8,7 +8,7 @@ const About = () => {
         <Row>
             <Col>
                 <Container
-                    className="about-display"
+                    className="about-display gradient"
                     style={{
                         width: "60%",
                         marginTop: "5%",

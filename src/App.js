@@ -1,11 +1,8 @@
 import "./App.css";
-import {Container} from "react-bootstrap"
-import Navigation from "./pages/Navigation";
+import Navigation from "./components/Navigation";
 
 const App = () => {
-  return (
-    <Navigation/>
-  )
-}
+    return <Navigation />;
+};
 
 export default App;
