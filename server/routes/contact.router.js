@@ -1,7 +1,14 @@
+const express = require("express");
+const router = express.Router();
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-app.post("/contact", (req, res) => {
+
+/*sgMail.setApiKey(
+    "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"
+);*/
+
+
+router.post("/contact", (req, res) => {
     // Access the submitted form data
     const { fullName, email, message, phone } = req.body;
 
@@ -28,3 +35,5 @@ app.post("/contact", (req, res) => {
             });
         });
 });
+
+module.exports = router;

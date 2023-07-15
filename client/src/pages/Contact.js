@@ -5,6 +5,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
+const api = axios.create({
+    baseURL: "http://localhost:3001",
+});
+
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PHONE_REGEX = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
@@ -88,8 +92,9 @@ const Contact = () => {
 
 const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Submitting...")
 
-    // Validate form inputs
+    /*// Validate form inputs
     const formErrors = {};
     Object.keys(ERROR_DICT).forEach((property) => {
         const errorMessage = validateInputs(property, state[property]);
@@ -102,7 +107,7 @@ const handleSubmit = (e) => {
     // If there are errors, prevent form submission
     if (Object.keys(formErrors).length > 0) {
         return;
-    }
+    }*/
 
     // Prepare the form data to be sent to the backend
     const formData = {
@@ -112,8 +117,8 @@ const handleSubmit = (e) => {
     };
 
     // Send the form data to the backend API endpoint
-    axios
-        .post("/api/contact", formData)
+    api
+        .post("/contact", formData)
         .then((response) => {
             console.log(response.data); // Log the response from the backend
             alert(
