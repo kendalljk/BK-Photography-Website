@@ -26,3 +26,4 @@ package-lock.json
 sendgrid.env
 server/node_modules/
 client/node_modules/
+sendgrid.env

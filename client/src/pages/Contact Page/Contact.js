@@ -4,6 +4,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import "../Contact Page/Contact.css"
 
 const api = axios.create({
     baseURL: "http://localhost:3001",
@@ -134,8 +135,8 @@ const handleSubmit = (e) => {
 
     return (
         <Container>
-            <Row className="text-center">
-                <h2 style={{ marginTop: "2%" }}>Contact</h2>
+            <Row className="text-center mt-2">
+                <h2>Contact</h2>
                 <p>
                     To request a date, or for more information, please contact
                     me.
