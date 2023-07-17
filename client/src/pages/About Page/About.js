@@ -1,22 +1,21 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import profilePhoto from "../../icons/BrianKoch.png";
 import "../About Page/About.css";
 
 const About = () => {
     return (
-        <Row>
-            <Container className="about-display gradient">
+        <Row className="background">
+            <Container id="about-display">
                 <Image
                     id="photographer-photo"
                     fluid={true}
-                    roundedCircle={true}
                     src={profilePhoto}
                     alt="photographer photo"
                 />
-                <h2 className="text-center">Brian Koch</h2>
                 <div className="photographer-bio">
+                <h2 className="about-header">ABOUT</h2>
                     <p>
                         Brian Koch is a professional photographer known for his
                         captivating images of landscapes and wildlife spanning

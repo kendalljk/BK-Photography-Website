@@ -1,7 +1,27 @@
-
-
-.about-display {
-  width: 60%;
-  margin-top: 5%;
+.background {
   height: 100vh;
+}
+
+#about-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#photographer-photo {
+  width: 50%;
+  height: 60%;
+  margin: 0 5%;
+}
+
+.about-header {
+  text-align: left;
+}
+
+.photographer-bio {
+  text-align: justify;
+  margin-right: 5%;
+  font-size: small;
 }

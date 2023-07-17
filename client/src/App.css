@@ -1,26 +1,3 @@
-
-
-p {
-  text-align: center;
-}
-
-#welcome-image {
-  width: 100%;
-  max-height: 65vh;
-  margin: 10% auto;
-}
-
-#photographer-photo {
-  width: 15rem;
-  margin: 3% 0 ;
-}
-
-.about-display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 button {
   color: #090909;
   padding: 5px 10px;
@@ -36,7 +13,3 @@ button:hover {
   border-radius: 15px;
 }
 
-html {
-  width: 100%;
-  height: 100%;
-}

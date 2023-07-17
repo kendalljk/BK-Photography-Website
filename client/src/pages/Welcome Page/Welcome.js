@@ -4,7 +4,8 @@ import axios from "axios";
 import "../Welcome Page/Welcome.css";
 
 const FLICKR_API = "https://api.flickr.com/services/rest/";
-const userId = "198700774@N05";
+const userId = "198700774@N05"; //put in env
+const FLICKR_API_KEY = "cd5776663cfef606857d28973a2b3920"; // put in env
 
 const Welcome = () => {
     const [photos, setPhotos] = useState([]);
@@ -12,30 +13,33 @@ const Welcome = () => {
     const [loading, setLoading] = useState(true);
     const intervalRef = useRef();
 
-    const fetchPhotos = async () => {
-        try {
-            setLoading(true);
-            const response = await axios.get(FLICKR_API, {
-                params: {
-                    method: "flickr.people.getPublicPhotos",
-                    api_key: "cd5776663cfef606857d28973a2b3920",
-                    user_id: userId,
-                    format: "json",
-                    nojsoncallback: 1,
-                },
-            });
+const fetchPhotos = () => {
+    setLoading(true);
+    axios
+        .get(FLICKR_API, {
+            params: {
+                method: "flickr.people.getPublicPhotos",
+                api_key: FLICKR_API_KEY,
+                user_id: userId,
+                format: "json",
+                nojsoncallback: 1,
+            },
+        })
+        .then((response) => {
             const totalPages = response.data.photos.pages;
-            const randomPage = Math.floor(Math.random() * totalPages);
-            const photosResponse = await axios.get(FLICKR_API, {
+            const randomPage = Math.floor(Math.random() * totalPages) + 1;
+            return axios.get(FLICKR_API, {
                 params: {
                     method: "flickr.people.getPublicPhotos",
-                    api_key: "cd5776663cfef606857d28973a2b3920",
+                    api_key: FLICKR_API_KEY,
                     user_id: userId,
                     format: "json",
                     nojsoncallback: 1,
                     page: randomPage,
                 },
             });
+        })
+        .then((photosResponse) => {
             setPhotos(photosResponse.data.photos.photo);
             setCurrentPhotoIndex(
                 Math.floor(
@@ -43,11 +47,11 @@ const Welcome = () => {
                 )
             );
             setLoading(false);
-        } catch (error) {
+        })
+        .catch((error) => {
             console.error(error);
-            // Consider handling errors
-        }
-    };
+        });
+};
 
     useEffect(() => {
         fetchPhotos();
@@ -62,36 +66,34 @@ const Welcome = () => {
     };
 
     useEffect(() => {
-        if (!loading) {
-            intervalRef.current = setInterval(nextPhoto, 10000);
-            return () => {
-                clearInterval(intervalRef.current);
-            };
-        }
-    }, [photos, currentPhotoIndex, loading]);
+        intervalRef.current = setInterval(nextPhoto, 10000);
+        return () => {
+            clearInterval(intervalRef.current);
+        };
+    }, [photos, currentPhotoIndex]);
+
+  const currentPhoto = photos[currentPhotoIndex];
+  console.log(currentPhoto);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div></div>;
     }
 
-    const currentPhoto = photos[currentPhotoIndex];
-
     return (
-        <>
-            <Row
+        <Row>
+            <Container fluid
                 className="background-photo"
                 style={{
                     backgroundImage: `url(https://live.staticflickr.com/${currentPhoto.server}/${currentPhoto.id}_${currentPhoto.secret}_c.jpg)`,
                 }}
             >
-                <Container className="page-header">
-                    <h1 className="web-title">Brian Koch</h1>
-                    <h2 className="web-subtitle">
-                        Nature and Travel Photographer
+                <div className="page-header">
+                    <h2 id="subtitle">
+                        NATURE AND TRAVEL PHOTOGRAPHY
                     </h2>
-                </Container>
-            </Row>
-        </>
+                </div>
+            </Container>
+        </Row>
     );
 };
 

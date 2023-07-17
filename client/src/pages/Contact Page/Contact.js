@@ -1,236 +1,201 @@
 import React from "react";
-import { useState } from "react";
-import { Container, Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
-import "../Contact Page/Contact.css"
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Container, Form, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import InputMask from "react-input-mask";
+import "../Contact Page/Contact.css";
 
 const api = axios.create({
     baseURL: "http://localhost:3001",
 });
 
-const EMAIL_REGEX =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PHONE_REGEX = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-
-const initialState = {
-    fullName: "",
-    email: "",
-    phone: "",
-    date: "",
-    message: "",
-    error: "",
-};
-
-
-const minLength = (value, length) => value.length >= length;
-const maxLength = (value, length) => value.length <= length;
-const required = (value) => value !== "";
-const pattern = (value, pattern) =>
-    String(value).toLocaleLowerCase().match(pattern);
-
-    const validateName = (fullName) => {
-    if (!required(fullName)) return "Please enter your name.";
-    if (!minLength(fullName, 2))
-        return "Your name must be at least 2 characters.";
-        if (!maxLength(fullName, 25))
-        return "Your name must be no longer than 25 characters.";
-        return "";
-      };
-
-const validateDate = (date) => {
-    if (!required(date)) return "Please select a date";
-};
-
-const validateMessage = (message) => {
-  if (!required(message)) return "Please enter a message.";
-  if (!minLength(message, 2))
-  return "Your message must be at least 2 characters.";
-  if (!maxLength(message, 300))
-  return "Please limit your message to 300 characters.";
-    return "";
-  };
-
-const validateEmail = (email) => {
-  if (!required(email)) return "Email is required";
-  if (!pattern(email, EMAIL_REGEX)) return "Invalid email format.";
-  return "";
-};
-
-const validatePhone = (phone) => {
-    if (!required(phone)) return "Phone number is required";
-    if (!pattern(phone, PHONE_REGEX)) return "Invalid phone number format.";
-    return "";
-};
-
-const ERROR_DICT = {
-  fullName: validateName,
-  email: validateEmail,
-  phone: validatePhone,
-  date: validateDate,
-  message: validateMessage,
-};
-
 const Contact = () => {
-  const [state, setState] = useState(initialState);
-    const [error, setError] = useState(initialState);
+    const formik = useFormik({
+        initialValues: {
+            fullName: "",
+            email: "",
+            phone: "",
+            date: "",
+            message: "",
+        },
+        validationSchema: Yup.object({
+            fullName: Yup.string()
+                .required("Please enter your name.")
+                .min(2, "Your name must be at least 2 characters.")
+                .max(25, "Your name must be no longer than 25 characters."),
+            email: Yup.string()
+                .required("Email is required.")
+                .email("Invalid email format."),
+            phone: Yup.string()
+                .required("Phone number is required.")
+                .matches(
+                    /^\(\d{3}\)-\d{3}-\d{4}$/,
+                    "Invalid phone number format."
+                ),
+            date: Yup.date().required("Please select a date."),
+            message: Yup.string()
+                .required("Please enter a message.")
+                .min(2, "Your message must be at least 2 characters.")
+                .max(300, "Please limit your message to 300 characters."),
+        }),
+        onSubmit: (values) => {
+            // Log the data to console for debug
+            console.log("Submitting...");
 
-    const validateInputs = (property, value) => {
-      return ERROR_DICT[property](value);
-    };
-
-    const handleChange = (e) => {
-        setState((state) => ({
-          ...state,
-          [e.target.name]: e.target.value,
-        }));
-        setError((error) => ({
-          ...error,
-          [e.target.name]: validateInputs(e.target.name, e.target.value),
-        }));
-      };
-
-const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitting...")
-
-    /*// Validate form inputs
-    const formErrors = {};
-    Object.keys(ERROR_DICT).forEach((property) => {
-        const errorMessage = validateInputs(property, state[property]);
-        if (errorMessage) {
-            formErrors[property] = errorMessage;
-        }
+            // Send the form data to the backend API endpoint
+            api.post("/contact", values)
+                .then((response) => {
+                    console.log(response.data); // Log the response from the backend
+                    alert(
+                        `Thanks for reaching out, ${values.fullName}. You can expect an email response at ${values.email} in 1-2 business days.`
+                    );
+                    formik.resetForm();
+                })
+                .catch((error) => {
+                    console.error(error); // Log any error that occurred during the API request
+                    alert("Failed to submit the form. Please try again later.");
+                });
+        },
     });
-    setError(formErrors);
-
-    // If there are errors, prevent form submission
-    if (Object.keys(formErrors).length > 0) {
-        return;
-    }*/
-
-    // Prepare the form data to be sent to the backend
-    const formData = {
-        fullName: state.fullName,
-        email: state.email,
-        message: state.message,
-    };
-
-    // Send the form data to the backend API endpoint
-    api
-        .post("/contact", formData)
-        .then((response) => {
-            console.log(response.data); // Log the response from the backend
-            alert(
-                `Thanks for reaching out, ${state.fullName}. You can expect an email response at ${state.email} in 1-2 business days.`
-            );
-            setState(initialState);
-        })
-        .catch((error) => {
-            console.error(error); // Log any error that occurred during the API request
-            alert("Failed to submit the form. Please try again later.");
-        });
-};
 
     return (
-        <Container>
-            <Row className="text-center mt-2">
-                <h2>Contact</h2>
-                <p>
-                    To request a date, or for more information, please contact
-                    me.
-                </p>
-            </Row>
-            <Row className="justify-content-center">
-                <Col className="col-md-6">
-                    <Form className="col-lg" style={{}} onSubmit={handleSubmit}>
-                        <Form.Group className="fullName">
-                            <Form.Label>Full Name:</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Full Name"
-                                name="fullName"
-                                id="fullName"
-                                value={state.fullName}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                        {error.fullName && (
-                            <span className="error-text">{error.fullName}</span>
-                        )}
-                        <Form.Group className="email">
-                            <Form.Label>Email:</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter Email"
-                                name="email"
-                                id="email"
-                                value={state.email}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                        {error.email && (
-                            <span className="error-text">{error.email}</span>
-                        )}
-                        <Form.Group className="phone">
-                            <Form.Label>Phone Number:</Form.Label>
-                            <Form.Control
-                                type="tel"
-                                placeholder="(XXX)-XXX-XXXX"
-                                name="phone"
-                                id="phone"
-                                value={state.phone}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                        {error.phone && (
-                            <span className="error-text">{error.phone}</span>
-                        )}
-                        <Form.Group className="date">
-                            <Form.Label>Date Requesting:</Form.Label>
-                            <Form.Control
-                                type="date"
-                                name="date"
-                                id="date"
-                                value={state.date}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                        {error.date && (
-                            <span className="error-text">{error.date}</span>
-                        )}
-                        <Form.Group className="message">
-                            <Form.Label>Message</Form.Label>
-                            <Form.Control
-                                as="textarea"
-                                placeholder="Tell me about what you're looking for, any special requests... "
-                                name="message"
-                                id="message"
-                                style={{
-                                    height: "100px",
-                                    verticalAlign: "top",
-                                }}
-                                value={state.message}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                        {error.message && (
-                            <span className="error-text">{error.message}</span>
-                        )}
-                        <div className="d-flex justify-content-center">
-                            <button
-                                style={{ marginTop: "5%" }}
-                                variant="outline-primary"
-                                type="submit"
-                            >
-                                Submit
-                            </button>
-                        </div>
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
+        <Row className="background">
+            <Container id="contact-display">
+                <div className="contact-title">
+                    <h2>CONTACT</h2>
+                    <p>
+                        Please reach out about your photo. I’m happy to discuss
+                        your project and provide you a quote.
+                    </p>
+                </div>
+                <Form className="form-display" onSubmit={formik.handleSubmit}>
+                    <Form.Group className="fullName">
+                        <Form.Label>Full Name:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter Full Name"
+                            name="fullName"
+                            id="fullName"
+                            value={formik.values.fullName}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            isInvalid={
+                                formik.touched.fullName &&
+                                !!formik.errors.fullName
+                            }
+                        />
+                        {formik.touched.fullName && formik.errors.fullName ? (
+                            <div className="error-text">
+                                {formik.errors.fullName}
+                            </div>
+                        ) : null}
+                    </Form.Group>
+                    <Form.Group className="email">
+                        <Form.Label>Email:</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter Email"
+                            name="email"
+                            id="email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            isInvalid={
+                                formik.touched.email && !!formik.errors.email
+                            }
+                        />
+                        {formik.touched.email && formik.errors.email ? (
+                            <div className="error-text">
+                                {formik.errors.email}
+                            </div>
+                        ) : null}
+                    </Form.Group>
+                    <Form.Group className="phone">
+                        <Form.Label>Phone Number:</Form.Label>
+                        <InputMask
+                            mask="(999)-999-9999"
+                            type="tel"
+                            placeholder="(XXX)-XXX-XXXX"
+                            name="phone"
+                            id="phone"
+                            value={formik.values.phone}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        >
+                            {(inputProps) => (
+                                <Form.Control
+                                    {...inputProps}
+                                    isInvalid={
+                                        formik.touched.phone &&
+                                        !!formik.errors.phone
+                                    }
+                                />
+                            )}
+                        </InputMask>
+                        {formik.touched.phone && formik.errors.phone ? (
+                            <div className="error-text">
+                                {formik.errors.phone}
+                            </div>
+                        ) : null}
+                    </Form.Group>
+                    <Form.Group className="date">
+                        <Form.Label>Date Requesting:</Form.Label>
+                        <Form.Control
+                            type="date"
+                            name="date"
+                            id="date"
+                            value={formik.values.date}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            isInvalid={
+                                formik.touched.date && !!formik.errors.date
+                            }
+                        />
+                        {formik.touched.date && formik.errors.date ? (
+                            <div className="error-text">
+                                {formik.errors.date}
+                            </div>
+                        ) : null}
+                    </Form.Group>
+                    <Form.Group className="message">
+                        <Form.Label>Message</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            placeholder="Tell me about what you're looking for, any special requests... "
+                            name="message"
+                            id="message"
+                            style={{
+                                height: "100px",
+                                verticalAlign: "top",
+                            }}
+                            value={formik.values.message}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            isInvalid={
+                                formik.touched.message &&
+                                !!formik.errors.message
+                            }
+                        />
+                        {formik.touched.message && formik.errors.message ? (
+                            <div className="error-text">
+                                {formik.errors.message}
+                            </div>
+                        ) : null}
+                    </Form.Group>
+                    <div className="d-flex justify-content-center">
+                        <button
+                            style={{ marginTop: "5%" }}
+                            variant="outline-primary"
+                            type="submit"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </Form>
+            </Container>
+        </Row>
     );
 };
 
