@@ -9,36 +9,36 @@ function Navigation() {
             className="navbar"
             style={{
                 display: "flex",
-                justifyContent: "space-between",
                 background: "transparent",
+                justifyContent: "space-between",
                 position: "absolute",
                 width: "100%",
             }}
         >
-            <Navbar.Brand as="div">
-                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <Navbar.Brand
+                as="div"
+                style={{
+                    width: "50%",
+                }}
+            >
+                <Link
+                    to="/"
+                    style={{
+                        textDecoration: "none",
+                        color: "white",
+                        width: "100%",
+                    }}
+                >
                     <img
                         src={logo}
                         alt="Logo"
                         className="logo"
                         style={{
-                            width: "2.5rem",
+                            width: "5rem",
                             height: "auto",
                             paddingLeft: "5%",
                         }}
                     />
-                    <h1
-                        id="title"
-                        style={{
-                            display: "inline",
-                            paddingLeft: "15%",
-                            letterSpacing: "2px",
-                            textShadow: "1px 1px white",
-                            color: "black",
-                        }}
-                    >
-                        BRIAN KOCH
-                    </h1>
                 </Link>
             </Navbar.Brand>
             <Nav
@@ -46,12 +46,16 @@ function Navigation() {
                 style={{
                     paddingRight: "5%",
                     color: "black",
-                  fontSize: "larger",
-                    fontWeight: "normal"
+                    fontSize: "larger",
+                    fontWeight: "normal",
+                    width: "auto",
                 }}
             >
                 <Nav.Link as={Link} to="/about">
                     About
+                </Nav.Link>
+                <Nav.Link as={Link} to="/portfolio">
+                    Portfolio
                 </Nav.Link>
                 <Nav.Link as={Link} to="/contact">
                     Contact

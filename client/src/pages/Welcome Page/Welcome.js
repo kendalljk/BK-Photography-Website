@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Row } from "react-bootstrap";
 import axios from "axios";
 import "../Welcome Page/Welcome.css";
+import Banner from "../../components/Banner";
+import Footer from "../../components/Footer";
 
 const FLICKR_API = "https://api.flickr.com/services/rest/";
 const userId = "198700774@N05"; //put in env
@@ -13,45 +15,46 @@ const Welcome = () => {
     const [loading, setLoading] = useState(true);
     const intervalRef = useRef();
 
-const fetchPhotos = () => {
-    setLoading(true);
-    axios
-        .get(FLICKR_API, {
-            params: {
-                method: "flickr.people.getPublicPhotos",
-                api_key: FLICKR_API_KEY,
-                user_id: userId,
-                format: "json",
-                nojsoncallback: 1,
-            },
-        })
-        .then((response) => {
-            const totalPages = response.data.photos.pages;
-            const randomPage = Math.floor(Math.random() * totalPages) + 1;
-            return axios.get(FLICKR_API, {
+    const fetchPhotos = () => {
+        setLoading(true);
+        axios
+            .get(FLICKR_API, {
                 params: {
                     method: "flickr.people.getPublicPhotos",
                     api_key: FLICKR_API_KEY,
                     user_id: userId,
                     format: "json",
                     nojsoncallback: 1,
-                    page: randomPage,
                 },
+            })
+            .then((response) => {
+                console.log("response", response);
+                const totalPages = response.data.photos.pages;
+                const randomPage = Math.floor(Math.random() * totalPages) + 1;
+                return axios.get(FLICKR_API, {
+                    params: {
+                        method: "flickr.people.getPublicPhotos",
+                        api_key: FLICKR_API_KEY,
+                        user_id: userId,
+                        format: "json",
+                        nojsoncallback: 1,
+                        page: randomPage,
+                    },
+                });
+            })
+            .then((photosResponse) => {
+                setPhotos(photosResponse.data.photos.photo);
+                setCurrentPhotoIndex(
+                    Math.floor(
+                        Math.random() * photosResponse.data.photos.photo.length
+                    )
+                );
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error(error);
             });
-        })
-        .then((photosResponse) => {
-            setPhotos(photosResponse.data.photos.photo);
-            setCurrentPhotoIndex(
-                Math.floor(
-                    Math.random() * photosResponse.data.photos.photo.length
-                )
-            );
-            setLoading(false);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-};
+    };
 
     useEffect(() => {
         fetchPhotos();
@@ -72,28 +75,31 @@ const fetchPhotos = () => {
         };
     }, [photos, currentPhotoIndex]);
 
-  const currentPhoto = photos[currentPhotoIndex];
-  console.log(currentPhoto);
+    const currentPhoto = photos[currentPhotoIndex];
+    console.log(currentPhoto);
 
     if (loading) {
         return <div></div>;
     }
 
     return (
-        <Row>
-            <Container fluid
-                className="background-photo"
-                style={{
-                    backgroundImage: `url(https://live.staticflickr.com/${currentPhoto.server}/${currentPhoto.id}_${currentPhoto.secret}_c.jpg)`,
-                }}
-            >
-                <div className="page-header">
-                    <h2 id="subtitle">
-                        NATURE AND TRAVEL PHOTOGRAPHY
-                    </h2>
-                </div>
-            </Container>
-        </Row>
+        <>
+            <Row className="g-0">
+                {" "}
+                {/*override gutter*/}
+                <Container
+                    fluid="true"
+                    className="background-photo"
+                    style={{
+                        backgroundImage: `url(https://live.staticflickr.com/${currentPhoto.server}/${currentPhoto.id}_${currentPhoto.secret}_c.jpg)`,
+                    }}
+                >
+                    <div className="page-header"></div>
+                </Container>
+            </Row>
+            <Banner />
+            <Footer />
+        </>
     );
 };
 

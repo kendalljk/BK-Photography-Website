@@ -1,6 +1,7 @@
+* {
+}
+
 .background-photo {
-  height: 100vh;
-  width: 100vw;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -11,7 +12,7 @@
 .page-header {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 70vh;
   justify-content:flex-end;
   margin: auto;
   text-align: center;
