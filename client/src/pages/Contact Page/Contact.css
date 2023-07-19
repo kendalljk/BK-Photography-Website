@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  margin-top: 10%;
+  width: 60%;
+  margin-top: 5%;
   height: 100vh;
 }
 
@@ -18,4 +18,19 @@
 
 .form-display {
   width: 70%;
+}
+
+button {
+  color: #090909;
+  padding: 5px 10px;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #fff;
+  border-radius: 15px !important;
+}
+
+button:hover {
+  box-shadow: -6px -6px 12px #c5c5c5, 6px 6px 12px #fff;
+  border-radius: 15px;
 }

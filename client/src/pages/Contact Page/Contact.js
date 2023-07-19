@@ -66,7 +66,7 @@ const Contact = () => {
                 <div className="contact-title">
                     <h2>CONTACT</h2>
                     <p>
-                        Please reach out about your photo. I’m happy to discuss
+                        Please reach out about your photo. I'm happy to discuss
                         your project and provide you a quote.
                     </p>
                 </div>

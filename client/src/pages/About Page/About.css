@@ -1,26 +1,24 @@
-.background {
+.about-display {
+  display: flex;
+  width: 60%;
+  margin: auto !important;
+  align-items: center;
   height: 100vh;
 }
 
-#about-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.photo-display {
   width: 100%;
-  height: 100%;
+  margin-right: 15%;
 }
 
 #photographer-photo {
-  width: 50%;
-  height: 60%;
-  margin: 0 5%;
-}
-
-.about-header {
-  text-align: left;
+  border-radius: 50%;
+  width: 100%;
+  margin-right: 15%;
 }
 
 .photographer-bio {
+  width: 50%;
   text-align: justify;
   margin-right: 5%;
   font-size: small;

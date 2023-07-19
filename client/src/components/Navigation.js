@@ -9,9 +9,8 @@ function Navigation() {
             className="navbar"
             style={{
                 display: "flex",
-                background: "transparent",
+                background: "#0E0F19",
                 justifyContent: "space-between",
-                position: "absolute",
                 width: "100%",
             }}
         >
@@ -34,7 +33,7 @@ function Navigation() {
                         alt="Logo"
                         className="logo"
                         style={{
-                            width: "5rem",
+                            width: "3rem",
                             height: "auto",
                             paddingLeft: "5%",
                         }}

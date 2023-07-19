@@ -1,5 +1,6 @@
 import React from "react";
 import { Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import BKphotography from "../icons/BKphotography.png";
 
 const Banner = () => {
@@ -7,10 +8,10 @@ const Banner = () => {
         <Row
             className="banner-display g-0"
             style={{
-                backgroundColor: "#AAC2C0",
-                textAlign: "center",
-                width: "100%",
-                justifyContent: "center",
+                backgroundColor: " rgb(239, 235, 228)",
+              width: "100%",
+                padding: "5% 0",
+                margin: "auto",
             }}
         >
             <section
@@ -51,7 +52,7 @@ const Banner = () => {
                         experience the beauty of our planet and cultivate a
                         profound appreciation for the wonders of nature.
                     </p>
-                    <button
+                    <span
                         style={{
                             width: "auto",
                             display: "flex",
@@ -59,10 +60,11 @@ const Banner = () => {
                             background: "none",
                             border: "none",
                             justifyContent: "flex-end",
+                            textAlign: "right",
                         }}
                     >
-                        Learn More...
-                    </button>
+                        <Link to="/about">Learn More...</Link>
+                    </span>
                 </div>
             </section>
         </Row>

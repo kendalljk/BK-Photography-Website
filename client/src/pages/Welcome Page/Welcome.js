@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Image } from "react-bootstrap";
 import axios from "axios";
 import "../Welcome Page/Welcome.css";
+import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
+import AlbumsDisplay from "../../components/AlbumsDisplay";
 
 const FLICKR_API = "https://api.flickr.com/services/rest/";
 const userId = "198700774@N05"; //put in env
@@ -15,10 +17,11 @@ const Welcome = () => {
     const [loading, setLoading] = useState(true);
     const intervalRef = useRef();
 
-    const fetchPhotos = () => {
-        setLoading(true);
-        axios
-            .get(FLICKR_API, {
+    const fetchPhotos = async () => {
+        try {
+            setLoading(true);
+
+            const response = await axios.get(FLICKR_API, {
                 params: {
                     method: "flickr.people.getPublicPhotos",
                     api_key: FLICKR_API_KEY,
@@ -26,34 +29,33 @@ const Welcome = () => {
                     format: "json",
                     nojsoncallback: 1,
                 },
-            })
-            .then((response) => {
-                console.log("response", response);
-                const totalPages = response.data.photos.pages;
-                const randomPage = Math.floor(Math.random() * totalPages) + 1;
-                return axios.get(FLICKR_API, {
-                    params: {
-                        method: "flickr.people.getPublicPhotos",
-                        api_key: FLICKR_API_KEY,
-                        user_id: userId,
-                        format: "json",
-                        nojsoncallback: 1,
-                        page: randomPage,
-                    },
-                });
-            })
-            .then((photosResponse) => {
-                setPhotos(photosResponse.data.photos.photo);
-                setCurrentPhotoIndex(
-                    Math.floor(
-                        Math.random() * photosResponse.data.photos.photo.length
-                    )
-                );
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error(error);
             });
+
+            console.log("response", response);
+            const totalPages = response.data.photos.pages;
+            const randomPage = Math.floor(Math.random() * totalPages) + 1;
+
+            const photosResponse = await axios.get(FLICKR_API, {
+                params: {
+                    method: "flickr.people.getPublicPhotos",
+                    api_key: FLICKR_API_KEY,
+                    user_id: userId,
+                    format: "json",
+                    nojsoncallback: 1,
+                    page: randomPage,
+                },
+            });
+
+            setPhotos(photosResponse.data.photos.photo);
+            setCurrentPhotoIndex(
+                Math.floor(
+                    Math.random() * photosResponse.data.photos.photo.length
+                )
+            );
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
@@ -83,23 +85,25 @@ const Welcome = () => {
     }
 
     return (
-        <>
-            <Row className="g-0">
-                {" "}
-                {/*override gutter*/}
-                <Container
-                    fluid="true"
-                    className="background-photo"
-                    style={{
-                        backgroundImage: `url(https://live.staticflickr.com/${currentPhoto.server}/${currentPhoto.id}_${currentPhoto.secret}_c.jpg)`,
-                    }}
-                >
-                    <div className="page-header"></div>
-                </Container>
+        <main className="welcome-page">
+            <Header />
+            <Row className="welcome-display g-0 m-0">
+                <figure className="m-0">
+                    <img
+                        className="figure-photo"
+                        src={`https://live.staticflickr.com/${currentPhoto.server}/${currentPhoto.id}_${currentPhoto.secret}_b.jpg`}
+                        alt="BK images carousel"
+                    />
+                    <figcaption>
+                        <a href="https://flickr.com/photos/brian330inafrica">
+                            Brian Koch Photography
+                        </a>
+                    </figcaption>
+                </figure>
             </Row>
             <Banner />
-            <Footer />
-        </>
+            <AlbumsDisplay />
+        </main>
     );
 };
 

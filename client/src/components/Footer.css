@@ -1,0 +1,40 @@
+.footer-display {
+  display: flex;
+  padding: 2% 5% 0 5%;
+  background-color: #0E0F19;
+  color: white;
+  text-align: center;
+}
+
+a {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2%;
+}
+
+.social-icons {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  display: inline-flex;
+  justify-content: center;
+}
+
+
+.icon {
+  color: whitesmoke;
+  font-size: 24px;
+  margin: 0 2rem;
+}
+
+.copywrite {
+  padding-top: 2%;
+  text-align: center;
+  font-style: italic;
+  font-size: smaller;
+  color: grey;
+}
