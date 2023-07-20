@@ -1,0 +1,20 @@
+.gallery-display{
+  width: 60%;
+  margin: auto !important;
+  padding-top: 10rem;
+  height: 100vh;
+  background-color: rgba(246, 244, 241, .9);
+}
+
+.album-grid {
+  display: flex;
+  justify-content: space-around;
+}
+
+.album-item img{
+  height: 20rem;
+}
+
+h4 {
+  color: black;
+}

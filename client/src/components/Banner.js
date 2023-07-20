@@ -1,16 +1,15 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import BKphotography from "../icons/BKphotography.png";
+import BrianKoch from "../icons/BrianKoch.png";
 
 const Banner = () => {
     return (
         <Row
-            className="banner-display g-0"
+            className="banner-display g-0 my-0"
             style={{
-                backgroundColor: " rgb(239, 235, 228)",
-              width: "100%",
-                padding: "5% 0",
+                backgroundColor: "rgba(246, 244, 241, .9)",
+                width: "100%",
                 margin: "auto",
             }}
         >
@@ -24,17 +23,17 @@ const Banner = () => {
                 <div
                     style={{
                         margin: "5%",
-                        width: "50%",
+                        width: "100%",
                     }}
                 >
                     <img
-                        src={BKphotography}
-                        alt="Brian Koch Photography"
+                        src={BrianKoch}
+                        alt="Brian Koch"
                         style={{
-                            width: "40%",
+                            width: "100%",
+                            borderRadius: "50% 50% 0 0 ",
                         }}
                     />
-                    <h6>Travel, Nature, and Wildlife Photographer</h6>
                 </div>
                 <div
                     style={{

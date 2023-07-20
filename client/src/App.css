@@ -5,11 +5,9 @@
 }
 
 body {
-  background-color: #E2DBD5 !important;
-}
+  background-image: url(https://img.freepik.com/free-vector/topographic-map-background-design_23-2148585566.jpg?t=st=1689861148~exp=1689861748~hmac=ed99b59f681893da3e90f6f0d599f4418d27c3bae3086db656ff7e252816d7eb);}
 
 a:hover, i:hover {
-  color: #98473E !important;
   font-weight: bolder;
   cursor: pointer;
 }

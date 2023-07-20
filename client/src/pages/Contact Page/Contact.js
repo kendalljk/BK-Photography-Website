@@ -3,7 +3,6 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Container, Form, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import InputMask from "react-input-mask";
 import "../Contact Page/Contact.css";
 
@@ -17,7 +16,6 @@ const Contact = () => {
             fullName: "",
             email: "",
             phone: "",
-            date: "",
             message: "",
         },
         validationSchema: Yup.object({
@@ -63,19 +61,11 @@ const Contact = () => {
     return (
         <Row className="background">
             <Container id="contact-display">
-                <div className="contact-title">
-                    <h2>CONTACT</h2>
-                    <p>
-                        Please reach out about your photo. I'm happy to discuss
-                        your project and provide you a quote.
-                    </p>
-                </div>
                 <Form className="form-display" onSubmit={formik.handleSubmit}>
                     <Form.Group className="fullName">
                         <Form.Label>Full Name:</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Enter Full Name"
                             name="fullName"
                             id="fullName"
                             value={formik.values.fullName}
@@ -96,7 +86,6 @@ const Contact = () => {
                         <Form.Label>Email:</Form.Label>
                         <Form.Control
                             type="email"
-                            placeholder="Enter Email"
                             name="email"
                             id="email"
                             value={formik.values.email}
@@ -117,7 +106,6 @@ const Contact = () => {
                         <InputMask
                             mask="(999)-999-9999"
                             type="tel"
-                            placeholder="(XXX)-XXX-XXXX"
                             name="phone"
                             id="phone"
                             value={formik.values.phone}
@@ -140,34 +128,14 @@ const Contact = () => {
                             </div>
                         ) : null}
                     </Form.Group>
-                    <Form.Group className="date">
-                        <Form.Label>Date Requesting:</Form.Label>
-                        <Form.Control
-                            type="date"
-                            name="date"
-                            id="date"
-                            value={formik.values.date}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            isInvalid={
-                                formik.touched.date && !!formik.errors.date
-                            }
-                        />
-                        {formik.touched.date && formik.errors.date ? (
-                            <div className="error-text">
-                                {formik.errors.date}
-                            </div>
-                        ) : null}
-                    </Form.Group>
                     <Form.Group className="message">
-                        <Form.Label>Message</Form.Label>
+                        <Form.Label>Message:</Form.Label>
                         <Form.Control
                             as="textarea"
-                            placeholder="Tell me about what you're looking for, any special requests... "
                             name="message"
                             id="message"
                             style={{
-                                height: "100px",
+                                height: "8rem",
                                 verticalAlign: "top",
                             }}
                             value={formik.values.message}
@@ -190,10 +158,21 @@ const Contact = () => {
                             variant="outline-primary"
                             type="submit"
                         >
-                            Submit
+                            Send
                         </button>
                     </div>
                 </Form>
+            <div className="contact-icons">
+                <a href="https://www.facebook.com/brian.koch.75">
+                    <i className="icon fab fa-facebook" />
+                </a>
+                <a href="https://flickr.com/photos/brian330inafrica">
+                    <i className="icon fab fa-flickr" />
+                </a>
+                <a href={`mailto:kendalljunekoch@gmail.com`}>
+                    <i className="icon fas fa-envelope" />
+                </a>
+            </div>
             </Container>
         </Row>
     );

@@ -1,0 +1,38 @@
+.recent-display {
+  background-color:rgba(246, 244, 241, .9);
+  padding: 5%;
+}
+
+.recent-grid {
+  width: 100% !important;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.recent-grid {
+  display: inline-flex;
+}
+
+.recent-item img {
+  height: 25rem;
+  width: 20rem;
+  text-align: center;
+  padding: 5%;
+  border-radius: 15%;
+}
+
+h2 {
+  letter-spacing: 1rem;
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h4 {
+  letter-spacing: .5rem;
+  font-size: medium;
+}

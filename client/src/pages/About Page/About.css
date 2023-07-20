@@ -1,25 +1,31 @@
 .about-display {
   display: flex;
-  width: 60%;
+  justify-content: space-around !important;
+  width: 80%;
   margin: auto !important;
-  align-items: center;
+  align-items: flex-start;
   height: 100vh;
+  background-color: rgba(246, 244, 241, .9);
+  padding-top: 10rem;
 }
 
 .photo-display {
-  width: 100%;
-  margin-right: 15%;
+  display: flex;
+  margin: auto;
+  height: 100%;
 }
 
 #photographer-photo {
-  border-radius: 50%;
-  width: 100%;
-  margin-right: 15%;
+  height: 100%;
+  padding-bottom: 5%;
+}
+
+.photographer-section {
+  margin: 5%;
+  font-size: small;
+  text-align: justify;
 }
 
 .photographer-bio {
-  width: 50%;
-  text-align: justify;
-  margin-right: 5%;
-  font-size: small;
+  margin-top: 5%;
 }

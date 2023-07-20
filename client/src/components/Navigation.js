@@ -1,63 +1,62 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
-import logo from "../icons/BKlogo.png";
+import logo from "../icons/logo1.png";
+import "./Navigation.css"
 
 function Navigation() {
+    const location = useLocation();
+    const defaultStyle = { color: location.pathname === "/" ? "white" : "black" };
+    const activeStyle = { color: "gold", fontWeight: "bold" };
+
     return (
         <Navbar
             className="navbar"
-            style={{
-                display: "flex",
-                background: "#0E0F19",
-                justifyContent: "space-between",
-                width: "100%",
-            }}
         >
             <Navbar.Brand
                 as="div"
-                style={{
-                    width: "50%",
-                }}
             >
-                <Link
+                <Nav.Link
+                    as={Link}
                     to="/"
-                    style={{
-                        textDecoration: "none",
-                        color: "white",
-                        width: "100%",
-                    }}
                 >
                     <img
                         src={logo}
                         alt="Logo"
                         className="logo"
-                        style={{
-                            width: "3rem",
-                            height: "auto",
-                            paddingLeft: "5%",
-                        }}
                     />
-                </Link>
+                </Nav.Link>
             </Navbar.Brand>
             <Nav
                 className="mr-auto"
-                style={{
-                    paddingRight: "5%",
-                    color: "black",
-                    fontSize: "larger",
-                    fontWeight: "normal",
-                    width: "auto",
-                }}
             >
-                <Nav.Link as={Link} to="/about">
-                    About
+                <Nav.Link
+                    as={Link}
+                    to="/"
+                    style={location.pathname === "/" ? {...defaultStyle, ...activeStyle} : defaultStyle}
+                >
+                    HOME
                 </Nav.Link>
-                <Nav.Link as={Link} to="/portfolio">
-                    Portfolio
+                <Nav.Link
+                    as={Link}
+                    to="/about"
+                    style={location.pathname === "/about" ? {...defaultStyle, ...activeStyle} : defaultStyle}
+                >
+                    ABOUT
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contact">
-                    Contact
+                <Nav.Link
+                    as={Link}
+                    to="/galleries"
+                    style={location.pathname === "/galleries" ? {...defaultStyle, ...activeStyle} : defaultStyle}
+                >
+                    GALLERIES
+                </Nav.Link>
+                <Nav.Link
+                    as={Link}
+                    to="/contact"
+                    style={location.pathname === "/contact" ? {...defaultStyle, ...activeStyle} : defaultStyle}
+                >
+                    CONTACT
                 </Nav.Link>
             </Nav>
         </Navbar>
