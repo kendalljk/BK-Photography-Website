@@ -1,10 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require('dotenv').config(); // add this at the top of your index.js to load the variables
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(
-    "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"
-);
+const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
+const userId = process.env.USER_ID;
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 const app = express();
 app.use(bodyParser.json());

@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./Galleries.css"
+import "./Galleries.css";
 
 const Galleries = () => {
-
     const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const FLICKR_API = "https://api.flickr.com/services/rest/";
-    const FLICKR_API_KEY = process.env.NEXT_PUBLIC_FLICKR_API_KEY;
-    const userId = process.env.NEXT_PUBLIC_USER_ID;
+
+    const FLICKR_API_KEY = process.env.REACT_APP_FLICKR_API_KEY;
+    const userId = process.env.REACT_APP_USER_ID;
 
     useEffect(() => {
         const fetchAlbums = async () => {
@@ -26,17 +26,17 @@ const Galleries = () => {
                     },
                 });
 
-              const albumsData = response.data.photosets.photoset;
-              const albumId = response.data.photosets.photoset.id;
-              setAlbums(albumsData);
-              setLoading(false);
+                const albumsData = response.data.photosets.photoset;
+                const albumId = response.data.photosets.photoset.id;
+                setAlbums(albumsData);
+                setLoading(false);
             } catch (error) {
-              console.error(error);
+                console.error(error);
             }
-          };
+        };
 
-          fetchAlbums();
-          console.log(albums)
+        fetchAlbums();
+        console.log(albums);
     }, []);
 
     if (loading) {
