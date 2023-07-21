@@ -56,7 +56,7 @@ function Navigation() {
                     as={Link}
                     to="/galleries"
                     style={
-                        location.pathname === "/galleries"
+                        location.pathname.startsWith("/galleries")
                             ? { ...defaultStyle, ...activeStyle }
                             : defaultStyle
                     }

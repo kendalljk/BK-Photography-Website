@@ -1,0 +1,19 @@
+.album-display {
+    width: 80%;
+    margin: auto !important;
+    min-height: 100vh;
+    height: 100%;
+    background-color: rgba(246, 244, 241, .9);
+}
+
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.album-photo {
+  flex: 1 0 200px; /* grow | shrink | base size */
+  max-height: 20rem;
+  margin: 1rem;
+}

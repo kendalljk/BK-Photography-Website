@@ -1,7 +1,8 @@
 .gallery-display{
-  width: 60%;
+  width: 80%;
   margin: auto !important;
-  padding-top: 1rem;
+  padding-top: 4rem;
+  min-height: 100vh;
   height: 100%;
   background-color: rgba(246, 244, 241, .9);
 }

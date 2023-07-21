@@ -6,7 +6,7 @@
   align-items: flex-start;
   height: 100vh;
   background-color: rgba(246, 244, 241, .9);
-  padding-top: 1rem;
+  padding-top: 4rem;
 }
 
 .photo-display {
@@ -16,7 +16,7 @@
 
 #photographer-photo {
   height: 100%;
-  padding-bottom: 1rem;
+  padding: 1rem;
 }
 
 .photographer-section {

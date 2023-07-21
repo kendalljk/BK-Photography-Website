@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Galleries.css"
 
@@ -24,16 +25,16 @@ const Galleries = () => {
                     },
                 });
 
-                const albumsData = response.data.photosets.photoset;
+              const albumsData = response.data.photosets.photoset;
               setAlbums(albumsData);
-              console.log(albums)
-                setLoading(false);
+              setLoading(false);
             } catch (error) {
-                console.error(error);
+              console.error(error);
             }
-        };
+          };
 
-        fetchAlbums();
+          fetchAlbums();
+          console.log(albums)
     }, []);
 
     if (loading) {
@@ -49,11 +50,11 @@ const Galleries = () => {
                             src={`https://live.staticflickr.com/${album.server}/${album.primary}_${album.secret}_c.jpg`}
                             alt={album.title._content}
                         />
-                        <a
-                            href={`https://www.flickr.com/photos/${userId}/albums/${album.id}`}
-                        >
-                            <h4 className="album-title">{album.title._content}</h4>
-                        </a>
+                        <Link to={`/galleries/${album.id}`}>
+                            <h4 className="album-title">
+                                {album.title._content}
+                            </h4>
+                        </Link>
                     </div>
                 ))}
             </div>
