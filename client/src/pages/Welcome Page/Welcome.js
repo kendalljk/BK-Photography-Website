@@ -15,11 +15,12 @@ const Welcome = () => {
   const FLICKR_API = "https://api.flickr.com/services/rest/";
   const FLICKR_API_KEY = process.env.NEXT_PUBLIC_FLICKR_API_KEY;
   const userId = process.env.NEXT_PUBLIC_USER_ID;
+  const fetchPhotos = async () => {
+    try {
+      setLoading(true);
 
-    const fetchPhotos = async () => {
-        try {
-            setLoading(true);
-
+      console.log(FLICKR_API_KEY)
+      console.log(userId)
             // Get the album ID for the "backgrounds" album
             const albumResponse = await axios.get(FLICKR_API, {
                 params: {
