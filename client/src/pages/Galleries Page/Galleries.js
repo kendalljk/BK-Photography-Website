@@ -9,7 +9,7 @@ const Galleries = () => {
     const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
 
-    const FLICKR_API = process.env.FLICKR_API;
+    const FLICKR_API = "https://api.flickr.com/services/rest/";
     const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
     const userId = process.env.USER_ID;
 
