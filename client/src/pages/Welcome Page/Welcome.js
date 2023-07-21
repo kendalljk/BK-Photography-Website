@@ -19,9 +19,16 @@ const Welcome = () => {
     try {
       setLoading(true);
 
+              if (!FLICKR_API || !FLICKR_API_KEY || !userId) {
+                  console.error(
+                      "Required environment variables are not defined."
+                  );
+                  setLoading(false);
+                  return;
+              }
+
       console.log(FLICKR_API_KEY)
       console.log(userId)
-      console.log(process.env)
             // Get the album ID for the "backgrounds" album
             const albumResponse = await axios.get(FLICKR_API, {
                 params: {
