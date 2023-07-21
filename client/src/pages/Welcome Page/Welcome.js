@@ -12,6 +12,10 @@ const Welcome = () => {
     const [loading, setLoading] = useState(true);
     const intervalRef = useRef();
 
+  const FLICKR_API = process.env.FLICKR_API;
+  const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
+  const userId = process.env.USER_ID;
+
     const fetchPhotos = async () => {
         try {
             setLoading(true);
