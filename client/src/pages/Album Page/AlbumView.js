@@ -11,8 +11,8 @@ const AlbumView = () => {
     const [loading, setLoading] = useState(true);
 
     const FLICKR_API = "https://api.flickr.com/services/rest/";
-    const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
-    const userId = process.env.USER_ID;
+    const FLICKR_API_KEY = process.env.NEXT_PUBLIC_FLICKR_API_KEY;
+    const userId = process.env.NEXT_PUBLIC_USER_ID;
 
     useEffect(() => {
         const fetchPhotos = async () => {
