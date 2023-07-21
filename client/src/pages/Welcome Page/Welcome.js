@@ -12,7 +12,7 @@ const Welcome = () => {
     const [loading, setLoading] = useState(true);
     const intervalRef = useRef();
 
-  const FLICKR_API = "FLICKR_API=https://api.flickr.com/services/rest/";
+  const FLICKR_API = "https://api.flickr.com/services/rest/";
   const FLICKR_API_KEY = process.env.NEXT_PUBLIC_FLICKR_API_KEY;
   const userId = process.env.NEXT_PUBLIC_USER_ID;
 
