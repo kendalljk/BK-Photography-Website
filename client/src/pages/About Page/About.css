@@ -1,29 +1,30 @@
 .about-display {
   display: flex;
-  justify-content: space-around !important;
+  justify-content: space-around;
   width: 80%;
   margin: auto !important;
   align-items: flex-start;
   height: 100vh;
   background-color: rgba(246, 244, 241, .9);
-  padding-top: 10rem;
+  padding-top: 1rem;
 }
 
 .photo-display {
   display: flex;
   margin: auto;
-  height: 100%;
 }
 
 #photographer-photo {
   height: 100%;
-  padding-bottom: 5%;
+  padding-bottom: 1rem;
 }
 
 .photographer-section {
+  height: 100%;
   margin: 5%;
   font-size: small;
   text-align: justify;
+  overflow: auto;
 }
 
 .photographer-bio {

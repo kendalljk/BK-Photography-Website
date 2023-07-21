@@ -52,7 +52,7 @@ const Galleries = () => {
                         <a
                             href={`https://www.flickr.com/photos/${userId}/albums/${album.id}`}
                         >
-                            <h4>{album.title._content}</h4>
+                            <h4 className="album-title">{album.title._content}</h4>
                         </a>
                     </div>
                 ))}

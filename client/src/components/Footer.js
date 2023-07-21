@@ -2,7 +2,7 @@ import "./Footer.css";
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import BKphotography from "../icons/BKphotography.png"
+
 
 const Footer = () => {
     return (

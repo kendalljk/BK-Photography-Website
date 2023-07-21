@@ -10,14 +10,14 @@
 .welcome-display {
   width: 80%;
   margin: auto;
-  padding-top: 100vh;
+  padding-top: 94vh;
 }
 
 .figure-photo {
 position: absolute;
 top: 0;
 margin: auto;
-width: contain;
+width: 100%;
 height: 100vh;
-z-index: -1;
+z-index: -1
 }

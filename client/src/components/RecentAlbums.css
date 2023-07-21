@@ -12,6 +12,7 @@
 
 .recent-grid {
   display: inline-flex;
+  flex-wrap: wrap;
 }
 
 .recent-item img {
@@ -27,12 +28,16 @@ h2 {
   font-weight: 300;
 }
 
-a {
+.link {
   text-decoration: none;
   color: black;
 }
 
-h4 {
+.album-title {
   letter-spacing: .5rem;
   font-size: medium;
+}
+
+.album-title:hover {
+  color: gold;
 }

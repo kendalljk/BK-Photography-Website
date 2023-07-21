@@ -51,8 +51,8 @@ const RecentAlbums = () => {
               src={`https://live.staticflickr.com/${album.server}/${album.primary}_${album.secret}_b.jpg`}
               alt={album.title._content}
             />
-              <a href={`https://www.flickr.com/photos/${userId}/albums/${album.id}`}>
-                <h4>{album.title._content}</h4>
+              <a href={`https://www.flickr.com/photos/${userId}/albums/${album.id}`} className="link">
+                <h4 className="album-title">{album.title._content}</h4>
               </a>
           </div>
         ))}

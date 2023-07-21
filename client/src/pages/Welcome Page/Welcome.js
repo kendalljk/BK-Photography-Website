@@ -20,9 +20,10 @@ const Welcome = () => {
         try {
             setLoading(true);
 
-            const response = await axios.get(FLICKR_API, {
+            // Get the album ID for the "backgrounds" album
+            const albumResponse = await axios.get(FLICKR_API, {
                 params: {
-                    method: "flickr.people.getPublicPhotos",
+                    method: "flickr.photosets.getList",
                     api_key: FLICKR_API_KEY,
                     user_id: userId,
                     format: "json",
@@ -30,25 +31,35 @@ const Welcome = () => {
                 },
             });
 
-            console.log("response", response);
-            const totalPages = response.data.photos.pages;
-            const randomPage = Math.floor(Math.random() * totalPages) + 1;
+            const albumList = albumResponse.data.photosets.photoset;
+            const backgroundsAlbum = albumList.find(
+                (album) => album.title._content === "backgrounds"
+            );
 
+            if (!backgroundsAlbum) {
+                console.log("Backgrounds album not found.");
+                setLoading(false);
+                return;
+            }
+
+            const backgroundsAlbumId = backgroundsAlbum.id;
+
+            // Fetch photos from the "backgrounds" album
             const photosResponse = await axios.get(FLICKR_API, {
                 params: {
-                    method: "flickr.people.getPublicPhotos",
+                    method: "flickr.photosets.getPhotos",
                     api_key: FLICKR_API_KEY,
                     user_id: userId,
                     format: "json",
                     nojsoncallback: 1,
-                    page: randomPage,
+                    photoset_id: backgroundsAlbumId,
                 },
             });
 
-            setPhotos(photosResponse.data.photos.photo);
+            setPhotos(photosResponse.data.photoset.photo);
             setCurrentPhotoIndex(
                 Math.floor(
-                    Math.random() * photosResponse.data.photos.photo.length
+                    Math.random() * photosResponse.data.photoset.photo.length
                 )
             );
             setLoading(false);

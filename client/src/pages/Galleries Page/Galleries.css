@@ -1,20 +1,28 @@
 .gallery-display{
   width: 60%;
   margin: auto !important;
-  padding-top: 10rem;
-  height: 100vh;
+  padding-top: 1rem;
+  height: 100%;
   background-color: rgba(246, 244, 241, .9);
 }
 
 .album-grid {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
+}
+
+.album-item {
+  text-align: left;
+  margin: 1rem;
 }
 
 .album-item img{
   height: 20rem;
 }
 
-h4 {
+.album-title {
   color: black;
+  ;
 }

@@ -32,7 +32,6 @@ const Contact = () => {
                     /^\(\d{3}\)-\d{3}-\d{4}$/,
                     "Invalid phone number format."
                 ),
-            date: Yup.date().required("Please select a date."),
             message: Yup.string()
                 .required("Please enter a message.")
                 .min(2, "Your message must be at least 2 characters.")
@@ -40,7 +39,12 @@ const Contact = () => {
         }),
         onSubmit: (values) => {
             // Log the data to console for debug
-            console.log("Submitting...");
+          console.log("Submitting...");
+
+              if (!formik.isValid) {
+                  console.log("Form validation failed");
+                  return;
+              }
 
             // Send the form data to the backend API endpoint
             api.post("/contact", values)
