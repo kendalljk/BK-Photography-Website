@@ -6,10 +6,6 @@ import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import AlbumsDisplay from "../../components/RecentAlbums";
 
-const FLICKR_API = "https://api.flickr.com/services/rest/";
-const userId = "198700774@N05"; //put in env
-const FLICKR_API_KEY = "cd5776663cfef606857d28973a2b3920"; // put in env
-
 const Welcome = () => {
     const [photos, setPhotos] = useState([]);
     const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);

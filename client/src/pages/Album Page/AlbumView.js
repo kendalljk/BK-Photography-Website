@@ -4,9 +4,6 @@ import { Row } from 'react-bootstrap';
 import axios from 'axios';
 import "./AlbumView.css";
 
-    const FLICKR_API = "https://api.flickr.com/services/rest/";
-    const userId = "198700774@N05"; // Put your user ID here or use an environment variable
-    const FLICKR_API_KEY = "cd5776663cfef606857d28973a2b3920"; // Put your API key here or use an environment variable
 
 const AlbumView = () => {
     const { albumId } = useParams(); // Using useParams hook to access URL parameters

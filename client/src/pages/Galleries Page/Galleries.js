@@ -5,9 +5,6 @@ import axios from "axios";
 import "./Galleries.css"
 
 const Galleries = () => {
-    const FLICKR_API = "https://api.flickr.com/services/rest/";
-    const userId = "198700774@N05"; // Put your user ID here or use an environment variable
-    const FLICKR_API_KEY = "cd5776663cfef606857d28973a2b3920"; // Put your API key here or use an environment variable
 
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,6 +23,7 @@ const Galleries = () => {
                 });
 
               const albumsData = response.data.photosets.photoset;
+              const albumId = response.data.photosets.photoset.id;
               setAlbums(albumsData);
               setLoading(false);
             } catch (error) {
