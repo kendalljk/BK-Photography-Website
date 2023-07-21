@@ -21,6 +21,7 @@ const Welcome = () => {
 
       console.log(FLICKR_API_KEY)
       console.log(userId)
+      console.log(process.env)
             // Get the album ID for the "backgrounds" album
             const albumResponse = await axios.get(FLICKR_API, {
                 params: {
