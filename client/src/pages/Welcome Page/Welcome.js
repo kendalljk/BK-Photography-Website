@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, } from "react-bootstrap";
+import axios from "axios";
 import "../Welcome Page/Welcome.css";
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
-import AlbumsDisplay from "../../components/RecentAlbums";
+import RecentAlbums from "../../components/RecentAlbums";
 import useFetchFlickr from "../../hooks/useFetchFlickr";
 
 const Welcome = () => {
@@ -55,7 +56,7 @@ const Welcome = () => {
             <section className="welcome-display">
                 <Header />
                 <Banner />
-                <AlbumsDisplay />
+                <RecentAlbums />
             </section>
         </main>
     );

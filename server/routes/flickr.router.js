@@ -4,7 +4,7 @@ const router = express.Router();
 
 const FLICKR_API = "https://api.flickr.com/services/rest/";
 const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
-const userId = process.env.USER_ID;
+const userId = process.env.REACT_APP_USER_ID;
 
 // Fetch photos from Flickr API
 router.get("/photos/:albumName", async (req, res) => {

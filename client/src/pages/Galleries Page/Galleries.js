@@ -3,41 +3,11 @@ import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Galleries.css";
+import useFetchFlickr from "../../hooks/useFetchFlickr";
 
 const Galleries = () => {
-    const [albums, setAlbums] = useState([]);
-    const [loading, setLoading] = useState(true);
+ const { data: albums, loading } = useFetchFlickr("/flickr/albums");
 
-    const FLICKR_API = "https://api.flickr.com/services/rest/";
-
-    const FLICKR_API_KEY = process.env.REACT_APP_FLICKR_API_KEY;
-    const userId = process.env.REACT_APP_USER_ID;
-
-    useEffect(() => {
-        const fetchAlbums = async () => {
-            try {
-                const response = await axios.get(FLICKR_API, {
-                    params: {
-                        method: "flickr.photosets.getList",
-                        api_key: FLICKR_API_KEY,
-                        user_id: userId,
-                        format: "json",
-                        nojsoncallback: 1,
-                    },
-                });
-
-                const albumsData = response.data.photosets.photoset;
-                const albumId = response.data.photosets.photoset.id;
-                setAlbums(albumsData);
-                setLoading(false);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchAlbums();
-        console.log(albums);
-    }, []);
 
     if (loading) {
         return <div>Loading...</div>;

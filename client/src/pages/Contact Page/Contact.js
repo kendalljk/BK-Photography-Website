@@ -6,9 +6,6 @@ import { Container, Form, Row } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import "../Contact Page/Contact.css";
 
-const api = axios.create({
-    baseURL: "http://localhost:3001",
-});
 
 const Contact = () => {
     const formik = useFormik({
@@ -47,7 +44,7 @@ const Contact = () => {
               }
 
             // Send the form data to the backend API endpoint
-            api.post("/contact", values)
+            axios.post("/contact", values)
                 .then((response) => {
                     console.log(response.data); // Log the response from the backend
                     alert(

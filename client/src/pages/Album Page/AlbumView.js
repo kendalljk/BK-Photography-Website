@@ -1,44 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { Row } from "react-bootstrap";
-import axios from "axios";
 import "./AlbumView.css";
+import useFetchFlickr from "../../hooks/useFetchFlickr";
 
 const AlbumView = () => {
-    const { albumId } = useParams(); // Using useParams hook to access URL parameters
-    const [photos, setPhotos] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { albumId } = useParams(); // Access albumId from dynamic URL
+const { data: photos, loading } = useFetchFlickr(`/flickr/photos/${albumId}`);
 
-    const FLICKR_API = "https://api.flickr.com/services/rest/";
-
-    const FLICKR_API_KEY = process.env.REACT_APP_FLICKR_API_KEY;
-    const userId = process.env.REACT_APP_USER_ID;
-
-    useEffect(() => {
-        const fetchPhotos = async () => {
-            try {
-                const response = await axios.get(FLICKR_API, {
-                    params: {
-                        method: "flickr.photosets.getPhotos",
-                        api_key: FLICKR_API_KEY,
-                        user_id: userId,
-                        photoset_id: albumId, // pass the albumId to the API call
-                        format: "json",
-                        nojsoncallback: 1,
-                    },
-                });
-
-                const photosData = response.data.photoset.photo;
-                setPhotos(photosData);
-                setLoading(false);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchPhotos();
-    }, [albumId]); // Dependency array contains albumId.
-    // This means the effect runs whenever albumId changes
 
     if (loading) {
         return <div>Loading...</div>;

@@ -6,20 +6,21 @@ import axios from "axios";
 const RecentAlbums = () => {
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
-    const userId = process.env.REACT_APP_USER_ID; // Use an environment variable for userId
+    const userId = process.env.REACT_APP_USER_ID;
 
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
                 const response = await axios.get("/flickr/recent");
-                setAlbums(response.data);
-                setLoading(false);
+              setAlbums(response.data);
+              setLoading(false);
             } catch (error) {
-                console.error(error);
+              console.error(error);
             }
-        };
+          };
 
-        fetchAlbums();
+          fetchAlbums();
+          console.log("Recent Albums", albums);
     }, []);
 
     if (loading) {
