@@ -11,17 +11,17 @@ router.post("/contact", (req, res) => {
     const { fullName, email, message, phone } = req.body;
 
     // Compose the email message
- const msg = {
-     to: "kendalljunekoch@gmail.com",
-     from: email, // sender's email address
-     subject: "Contact Form Submission",
-     text: `Name: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
-     mail_settings: {
-         sandbox_mode: {
-             enable: true,
-         },
-     },
- };
+    const msg = {
+        to: "kendalljunekoch@gmail.com",
+        from: email, // sender's email address
+        subject: "Contact Form Submission",
+        text: `Name: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+        mail_settings: {
+            sandbox_mode: {
+                enable: true,
+            },
+        },
+    };
 
     // Sends the email
     sgMail

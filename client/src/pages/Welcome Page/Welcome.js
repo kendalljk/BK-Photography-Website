@@ -1,87 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Image } from "react-bootstrap";
-import axios from "axios";
+import { Row, } from "react-bootstrap";
 import "../Welcome Page/Welcome.css";
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import AlbumsDisplay from "../../components/RecentAlbums";
+import useFetchFlickr from "../../hooks/useFetchFlickr";
 
 const Welcome = () => {
-    const [photos, setPhotos] = useState([]);
     const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-    const [loading, setLoading] = useState(true);
     const intervalRef = useRef();
 
-  const FLICKR_API = "https://api.flickr.com/services/rest/";
-  const FLICKR_API_KEY = process.env.REACT_APP_FLICKR_API_KEY;
-  const userId = process.env.REACT_APP_USER_ID;
-  console.log(FLICKR_API_KEY)
-  console.log(userId)
-  const fetchPhotos = async () => {
-    try {
-      setLoading(true);
+  const {
+      data: photos,
+      loading,
+      error,
+  } = useFetchFlickr("/flickr/photos/backgrounds");
 
-              if (!FLICKR_API || !FLICKR_API_KEY || !userId) {
-                  console.error(
-                      "Required environment variables are not defined."
-                  );
-                  setLoading(false);
-                  return;
-              }
-
-      console.log(FLICKR_API_KEY)
-      console.log(userId)
-            // Get the album ID for the "backgrounds" album
-            const albumResponse = await axios.get(FLICKR_API, {
-                params: {
-                    method: "flickr.photosets.getList",
-                    api_key: FLICKR_API_KEY,
-                    user_id: userId,
-                    format: "json",
-                    nojsoncallback: 1,
-                },
-            });
-
-            const albumList = albumResponse.data.photosets.photoset;
-            const backgroundsAlbum = albumList.find(
-                (album) => album.title._content === "backgrounds"
-            );
-
-            if (!backgroundsAlbum) {
-                console.log("Backgrounds album not found.");
-                setLoading(false);
-                return;
-            }
-
-            const backgroundsAlbumId = backgroundsAlbum.id;
-
-            // Fetch photos from the "backgrounds" album
-            const photosResponse = await axios.get(FLICKR_API, {
-                params: {
-                    method: "flickr.photosets.getPhotos",
-                    api_key: FLICKR_API_KEY,
-                    user_id: userId,
-                    format: "json",
-                    nojsoncallback: 1,
-                    photoset_id: backgroundsAlbumId,
-                },
-            });
-
-            setPhotos(photosResponse.data.photoset.photo);
-            setCurrentPhotoIndex(
-                Math.floor(
-                    Math.random() * photosResponse.data.photoset.photo.length
-                )
-            );
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        fetchPhotos();
-    }, []);
 
     const nextPhoto = () => {
         let newIndex = Math.floor(Math.random() * photos.length);
@@ -102,8 +36,12 @@ const Welcome = () => {
     console.log(currentPhoto);
 
     if (loading) {
-        return <div></div>;
-    }
+        return <div>Loading...</div>;
+  }
+
+      if (error) {
+          return <div>Error: {error}</div>;
+      }
 
     return (
         <main className="welcome-page">
